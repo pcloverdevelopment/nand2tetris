@@ -14,4 +14,11 @@ CHIP Or8Way {
 
     PARTS:
     // Put your code here:
+    Or(a=in[0], b=in[1], out=ip1);
+    Or(a=in[2], b=in[3], out=ip2);
+    Or(a=in[4], b=in[5], out=ip3);
+    Or(a=in[6], b=in[7], out=ip4);
+    Or(a=ip1, b=ip2, out=ip5);
+    Or(a=ip3, b=ip4, out=ip6);
+    Or(a=ip5, b=ip6, out=out);
 }
