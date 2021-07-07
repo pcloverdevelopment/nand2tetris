@@ -42,5 +42,25 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+    // Put you code here:
+    And16(a[0..15]=false, b=x, out=zxIp); // set x input to zero
+    Mux16(a=x, b=zxIp, sel=zx, out=x1Ip); // check to see if x should set to 0
+    Not16(in=x1Ip, out=nxIp); // not the x1Ip input
+    Mux16(a=x1Ip, b=nxIp, sel=nx, out=xFinalValue); // check to see if we should do bitwise not
+
+    And16(a[0..15]=false, b=y, out=zyIp); // set y input to zero
+    Mux16(a=y, b=zyIp, sel=zy, out=y1Ip); // check to see if y should set to 0
+    Not16(in=y1Ip, out=nyIp); // not the y1Ip input
+    Mux16(a=y1Ip, b=nyIp, sel=ny, out=yFinalValue); // check to see if we should do bitwise not
+
+    Add16(a=xFinalValue, b=yFinalValue, out=xyTwosComplementAddition);
+    And16(a=xFinalValue, b=yFinalValue, out=xyBitwiseAnd);
+    Mux16(a=xyBitwiseAnd, b=xyTwosComplementAddition, sel=f, out=fOutput);
+
+    Not16(in=fOutput, out=notFOutput);
+    Mux16(a=fOutput, b=notFOutput, sel=no, out=finalOutput);
+
+    And16(a=finalOutput, b=finalOutput, out=out);
+    ZeroCheck(in=finalOutput, out=zr);
+    NegativeCheck(in=finalOutput, out=ng);
 }

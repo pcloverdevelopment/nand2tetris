@@ -1,0 +1,11 @@
+CHIP ZeroCheck {
+    IN in[16];
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+    Or8Way(in=in[0..7], out=lowerZCheck);
+    Or8Way(in=in[8..15], out=upperZCheck);
+    Or(a=lowerZCheck, b=upperZCheck, out=zr);
+    Not(in=zr, out=out);
+}
