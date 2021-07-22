@@ -15,4 +15,7 @@ CHIP Bit {
 
     PARTS:
     // Put your code here:
+    Mux(a=ipOut, b=in, sel=load, out=ipMux);
+    DFF(in=ipMux, out=ipOut);
+    And(a=ipOut, b=ipOut, out=out);
 }
